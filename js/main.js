@@ -2,7 +2,6 @@
 
   //variables
   const hotspots = document.querySelectorAll(".Hotspot");
-
   const materialTemplate = document.querySelector("#material-template");
   const materialList = document.querySelector("#material-list");
 
@@ -32,7 +31,17 @@
       });
 
     })
-    .catch();
+    .catch(error => {
+      console.error("Error fetching info boxes:", error);
+      const errorContainer = document.querySelector("#info-boxes-container"); // 確保有正確的容器
+      if (!errorContainer.querySelector(".error-message")) { // 避免重複錯誤消息
+        const errorMessage = document.createElement("p");
+        errorMessage.classList.add("error-message");
+        errorMessage.textContent =
+          "Sorry, we couldn't load the content. Please check your connection or reload the page.";
+        errorContainer.appendChild(errorMessage);
+      }
+  });
     // error message goes in catch
 
   
@@ -40,6 +49,11 @@
   loadInfoBoxes();
 
   function loadMaterialInfo(){
+
+    const loader = document.querySelector("#loader"); // 選取 loader
+
+    // 顯示 loader
+    loader.classList.remove("hidden");
 
     // loading indicator here
 
@@ -58,10 +72,22 @@
         paragraphDescription.textContent = material.description;
   
         materialList.appendChild(clone);
+
+        loader.classList.add("hidden");
       } )
 
     })
-    .catch()
+    .catch(error => {
+      console.error("Error fetching material info:", error);
+      const errorContainer = document.querySelector("#material-list"); // 確保有正確的容器
+      if (!errorContainer.querySelector(".error-message")) { // 避免重複錯誤消息
+        const errorMessage = document.createElement("p");
+        errorMessage.classList.add("error-message");
+        errorMessage.textContent =
+          "Sorry, we couldn't load the content. Please check your connection or reload the page.";
+        errorContainer.appendChild(errorMessage);
+      }
+  })
     // error message goes in catch
 
     
