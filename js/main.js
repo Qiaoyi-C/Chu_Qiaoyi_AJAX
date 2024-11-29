@@ -16,7 +16,7 @@
 
     fetch("https://swiftpixel.com/earbud/api/infoboxes")
     .then(reponse => reponse.json())
-    .then(infoBox => {
+    .then(infoBoxes => {
       infoBoxes.forEach((infoBox, index) => {
         let selected = document.querySelector(`#hotspot-${index + 1}`);
   
@@ -58,7 +58,7 @@
     // loading indicator here
 
     fetch("https://swiftpixel.com/earbud/api/materials")
-    .then(reponse => reponse.json())
+    .then(response => response.json())
     .then(materialListData => {
       materialListData.forEach(material => {
         // clone the template
